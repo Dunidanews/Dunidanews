@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="so">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gabiley News - Wararka Geeska & Caalamka</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .admin-hidden { display: none; }
+        .news-card:hover { transform: translateY(-5px); transition: 0.3s; }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans text-gray-900">
+
+    <header class="bg-blue-900 text-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold tracking-wider">GABILEY<span class="text-yellow-400">NEWS</span></h1>
+            <nav class="hidden md:flex space-x-6">
+                <a href="#" class="hover:text-yellow-400">Wararka Geeska</a>
+                <a href="#" class="hover:text-yellow-400">Caalamka</a>
+                <a href="#" class="hover:text-yellow-400">Somaliland</a>
+                <a href="#" class="hover:text-yellow-400">Ciyaaraha</a>
+            </nav>
+            <button onclick="toggleAdmin()" class="bg-yellow-500 text-blue-900 px-4 py-1 rounded-full font-bold text-sm">Login</button>
+        </div>
+    </header>
+
+    <div class="bg-yellow-400 py-2 overflow-hidden">
+        <div class="whitespace-nowrap animate-pulse px-4 text-sm font-bold">
+            🔴 DEG DEG: Wararkii ugu dambeeyay ee Gabiley iyo xaaladda Geeska Afrika oo halkan kala soco...
+        </div>
+    </div>
+
+    <main class="container mx-auto px-4 py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <div class="lg:col-span-2 space-y-6" id="news-container">
+                <article class="bg-white rounded-lg shadow-md overflow-hidden news-card">
+                    <img src="https://images.unsplash.com/photo-1489749798305-4fea3ae63d43?auto=format&fit=crop&w=800" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <span class="text-blue-600 font-bold">GEESKA AFRIKA</span>
+                        <h2 class="text-2xl font-bold mt-2">Horumarka Ganacsiga ee Magaalada Gabiley</h2>
+                        <p class="mt-2 text-gray-600">Wararka naga soo gaaraya Gobolka Gabiley ayaa sheegaya in ganacsigu kor u kacay...</p>
+                        <button class="mt-4 text-blue-900 font-bold">Akhri inta dhiman →</button>
+                    </div>
+                </article>
+            </div>
+
+            <aside class="space-y-6">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="font-bold border-b-2 border-yellow-500 mb-4 text-xl">Nagu Saabsan</h3>
+                    <p class="text-sm text-gray-600">Gabiley News waa isha koowaad ee wararka Somaliland, gaar ahaan Gobolka Gabiley iyo guud ahaan caalamka.</p>
+                </div>
+                <div class="bg-blue-900 text-white p-6 rounded-lg shadow-md text-center">
+                    <h3 class="font-bold mb-2 text-lg">Xayeysiis</h3>
+                    <p class="text-sm italic">Halkan ku xayeysii ganacsigaaga</p>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <section id="admin-panel" class="admin-hidden fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-[100]">
+        <div class="bg-white p-8 rounded-xl max-w-md w-full">
+            <h2 class="text-xl font-bold mb-4">Dashboard-ka Maamulka</h2>
+            <input type="text" id="postTitle" placeholder="Cinwaanka Warka" class="w-full border p-2 mb-4 rounded">
+            <textarea id="postContent" placeholder="Warka oo kooban" class="w-full border p-2 mb-4 rounded"></textarea>
+            <div class="flex space-x-2">
+                <button onclick="addPost()" class="bg-green-600 text-white px-4 py-2 rounded flex-1">Daabac Warka</button>
+                <button onclick="toggleAdmin()" class="bg-red-600 text-white px-4 py-2 rounded">Xir</button>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-blue-900 text-white mt-12 py-10">
+        <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+                <h4 class="font-bold text-lg mb-4">GABILEY NEWS</h4>
+                <p class="text-gray-400 text-sm">Wararkii ugu dambeeyay ee Somaliland iyo Caalamka 24/7.</p>
+            </div>
+            <div>
+                <h4 class="font-bold text-lg mb-4">Xiriirka</h4>
+                <p class="text-gray-400 text-sm">Email: newsdunida@gmail.com</p>
+                <p class="text-gray-400 text-sm">Location: Gabiley, Somaliland</p>
+            </div>
+            <div>
+                <h4 class="font-bold text-lg mb-4">Social Media</h4>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-2xl hover:text-yellow-400"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="text-2xl hover:text-yellow-400"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-2xl hover:text-yellow-400"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-10 border-t border-gray-700 pt-5 text-sm">
+            &copy; 2024 Gabiley News. Dhammaan xuquuqdu waa dhowran tahay.
+        </div>
+    </footer>
+
+    <script>
+        function toggleAdmin() {
+            const panel = document.getElementById('admin-panel');
+            panel.classList.toggle('admin-hidden');
+        }
+
+        function addPost() {
+            const title = document.getElementById('postTitle').value;
+            const content = document.getElementById('postContent').value;
+            
+            if(title && content) {
+                const container = document.getElementById('news-container');
+                const html = `
+                    <article class="bg-white rounded-lg shadow-md overflow-hidden news-card">
+                        <div class="p-6">
+                            <span class="text-blue-600 font-bold">DEG DEG</span>
+                            <h2 class="text-2xl font-bold mt-2">${title}</h2>
+                            <p class="mt-2 text-gray-600">${content}</p>
+                            <button class="mt-4 text-blue-900 font-bold">Akhri inta dhiman →</button>
+                        </div>
+                    </article>
+                `;
+                container.insertAdjacentHTML('afterbegin', html);
+                toggleAdmin();
+                alert("Warka si guul leh ayaa loo daabacay!");
+            } else {
+                alert("Fadlan buuxi meelaha banaan!");
+            }
+        }
+    </script>
+</body>
+</html>
