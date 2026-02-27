@@ -1,229 +1,188 @@
 <!DOCTYPE html>
 <html lang="so">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dunida News</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dunida News - Dashboard</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        /* Header */
+        header {
+            background-color: #000;
+            color: white;
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-weight: bold;
+            font-size: 24px;
+            color: #ff0000;
+        }
+        .logo span { color: white; }
+        
+        .sub-header {
+            background-color: #cc0000;
+            color: white;
+            text-align: center;
+            padding: 5px 0;
+            font-style: italic;
+            font-size: 14px;
+        }
 
-<style>
+        /* News Grid */
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 40px 50px;
+        }
 
-/* ===== GENERAL ===== */
-body{
-  margin:0;
-  font-family:Arial, Helvetica, sans-serif;
-  background:#f4f4f4;
-}
+        .card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: 0.3s;
+        }
 
-a{text-decoration:none}
+        .card:hover { transform: translateY(-5px); }
 
-/* ===== HEADER ===== */
-header{
-  background:#000;
-  color:#fff;
-  padding:15px 40px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
 
-.logo{
-  font-size:22px;
-  font-weight:bold;
-}
+        .card-content { padding: 20px; }
+        
+        .meta {
+            display: flex;
+            justify-content: space-between;
+            color: #cc0000;
+            font-weight: bold;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
 
-.logo span{
-  color:#e60000;
-}
+        .card-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #222;
+        }
 
-nav a{
-  color:#fff;
-  margin-left:20px;
-  font-weight:500;
-}
+        .card-text {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.6;
+        }
 
-nav a:hover{
-  color:#e60000;
-}
+        .btn-read {
+            background: #cc0000;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 12px;
+            margin-top: 15px;
+        }
 
-/* ===== TICKER ===== */
-.ticker-wrap{
-  background:#c40000;
-  color:#fff;
-  overflow:hidden;
-  white-space:nowrap;
-  padding:10px 0;
-  font-weight:600;
-}
+        .reactions {
+            margin-top: 15px;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+            display: flex;
+            gap: 15px;
+            color: #777;
+            font-size: 14px;
+        }
 
-.ticker{
-  display:inline-block;
-  padding-left:100%;
-  animation: tickerMove 25s linear infinite;
-}
+        /* Breaking News Ticker */
+        .ticker-wrap {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: #cc0000;
+            color: white;
+            padding: 10px 0;
+            overflow: hidden;
+        }
 
-@keyframes tickerMove{
-  0%{ transform:translateX(0); }
-  100%{ transform:translateX(-100%); }
-}
+        .ticker {
+            display: inline-block;
+            white-space: nowrap;
+            animation: ticker 20s linear infinite;
+        }
 
-/* ===== NEWS GRID ===== */
-.container{
-  width:90%;
-  margin:40px auto;
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-  gap:25px;
-}
-
-/* ===== CARD ===== */
-.news-card{
-  background:#fff;
-  border-radius:12px;
-  box-shadow:0 5px 15px rgba(0,0,0,0.08);
-  overflow:hidden;
-  transition:0.3s;
-}
-
-.news-card:hover{
-  transform:translateY(-5px);
-}
-
-/* IMAGE (NO ZOOM CROP) */
-.news-card img{
-  width:100%;
-  aspect-ratio:16/9;
-  object-fit:contain;
-  background:#eee;
-}
-
-.news-content{
-  padding:20px;
-}
-
-.news-content h3{
-  margin:0 0 10px;
-  font-size:18px;
-}
-
-.news-content p{
-  font-size:14px;
-  color:#555;
-}
-
-/* ===== REACTIONS ===== */
-.reactions{
-  margin-top:15px;
-}
-
-.reactions button{
-  border:none;
-  background:#f1f1f1;
-  padding:6px 12px;
-  margin-right:8px;
-  border-radius:20px;
-  cursor:pointer;
-  font-size:14px;
-  transition:0.3s;
-}
-
-.reactions button:hover{
-  background:#ffdede;
-  transform:scale(1.05);
-}
-
-/* ===== FOOTER ===== */
-footer{
-  background:#000;
-  color:#fff;
-  text-align:center;
-  padding:20px;
-  margin-top:40px;
-}
-
-</style>
+        @keyframes ticker {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+    </style>
 </head>
-
 <body>
 
 <header>
-  <div class="logo">DUNIDA<span>NEWS</span></div>
-  <nav>
-    <a href="#">WARARKA</a>
-    <a href="#">DHAQAALAHA</a>
-    <a href="#">SIYAASADDA</a>
-  </nav>
+    <div class="logo">DN <span>DUNIDANEWS</span></div>
+    <nav style="font-size: 12px; text-transform: uppercase;">
+        Wararka | Dhaqaalaha | Siyaasadda | Gabiley
+    </nav>
 </header>
 
-<!-- TICKER -->
-<div class="ticker-wrap">
-  <div class="ticker" id="newsTicker"></div>
+<div class="sub-header">
+    *** Dunida News: Isha falanqaynta siyaasadda iyo dhaqaalaha Geeska Afrika iyo Caalamka ***
 </div>
 
-<!-- NEWS SECTION -->
 <div class="container">
-
-  <div class="news-card">
-    <img src="images/news1.jpg">
-    <div class="news-content">
-      <h3>DEG DEG: Michael McCaul Oo Trump Hordhigay Qorshaha Aqoonsiga Somaliland</h3>
-      <p>WASHINGTON – Guddoomiyaha Arrimaha Dibadda ee Congress-ka Maraykanka ayaa ka hadlay arrinta aqoonsiga.</p>
-      <div class="reactions">
-        <button onclick="react(this)">👍 <span>0</span></button>
-        <button onclick="react(this)">❤️ <span>0</span></button>
-      </div>
+    <div class="card">
+        <img src="https://i.postimg.cc/rmj2dZ4K/Michael-Mc-Caul-official-photo.jpg" alt="Trump News">
+        <div class="card-content">
+            <div class="meta"><span>DUNIDA NEWS</span> <span>2/27/2026</span></div>
+            <div class="card-title">DEG DEG: Michael McCaul Oo Trump Hordhigay Qorshaha Aqoonsiga Somaliland</div>
+            <p class="card-text">WASHINGTON (Dunida News) – Guddoomiyaha Guddiga Arrimaha Dibadda ee Congress-ka Maraykanka ayaa sheegay...</p>
+            <button class="btn-read">Akhriso inta dhiman</button>
+            <div class="reactions">❤️ 159 💬 12 🔗 Share</div>
+        </div>
     </div>
-  </div>
 
-  <div class="news-card">
-    <img src="images/news2.jpg">
-    <div class="news-content">
-      <h3>Michael McCaul Oo Baaq Nabadeed Iyo Taageero Cusub U Diray Somaliland</h3>
-      <p>WASHINGTON – Baaq cusub oo ku saabsan xasilloonida Geeska Afrika ayaa la shaaciyey.</p>
-      <div class="reactions">
-        <button onclick="react(this)">👍 <span>0</span></button>
-        <button onclick="react(this)">❤️ <span>0</span></button>
-      </div>
+    <div class="card">
+        <img src="https://i.postimg.cc/rmj2dZ4K/Michael-Mc-Caul-official-photo.jpg" alt="McCaul News">
+        <div class="card-content">
+            <div class="meta"><span>DUNIDA NEWS</span> <span>2/27/2026</span></div>
+            <div class="card-title">Michael McCaul Oo Baaq Nabadeed Iyo Taageero Cusub U Diray Somaliland</div>
+            <p class="card-text">Mudane Michael McCaul ayaa maanta oo ay taariikhdu tahay February 27, 2026 bayaan soo saaray...</p>
+            <button class="btn-read">Akhriso inta dhiman</button>
+            <div class="reactions">❤️ 120 💬 8 🔗 Share</div>
+        </div>
     </div>
-  </div>
 
-  <div class="news-card">
-    <img src="images/news3.jpg">
-    <div class="news-content">
-      <h3>Macron Oo War Cusub Kasoo Saaray Hubka Nukliyeerka Iyo Isbeddelka Wasiirada</h3>
-      <p>PARIS – Madaxweynaha Faransiiska ayaa ku dhawaaqay qorshe siyaasadeed oo cusub.</p>
-      <div class="reactions">
-        <button onclick="react(this)">👍 <span>0</span></button>
-        <button onclick="react(this)">❤️ <span>0</span></button>
-      </div>
+    <div class="card">
+        <img src="https://www.shutterstock.com/image-photo/world-news-concept-stack-newspapers-260nw-2115682880.jpg" alt="Macron News">
+        <div class="card-content">
+            <div class="meta"><span>DUNIDA NEWS</span> <span>2/27/2026</span></div>
+            <div class="card-title">Macron Oo War Cusub Kasoo Saaray Hubka Nukliyeerka Faransiiska</div>
+            <p class="card-text">PARIS (Dunida News) – Madaxweynaha Faransiiska ayaa ku dhawaaqay tallaabooyin xasaasi ah oo ku saabsan...</p>
+            <button class="btn-read">Akhriso inta dhiman</button>
+            <div class="reactions">❤️ 98 💬 5 🔗 Share</div>
+        </div>
     </div>
-  </div>
-
 </div>
 
-<footer>
-© 2026 DUNIDA NEWS NETWORK | SOMALILAND
-</footer>
-
-<script>
-
-/* AUTO TICKER FROM TITLES */
-document.addEventListener("DOMContentLoaded", function(){
-  const titles = document.querySelectorAll(".news-card h3");
-  let tickerText = "";
-  titles.forEach(title=>{
-    tickerText += " ★ " + title.innerText + " ";
-  });
-  document.getElementById("newsTicker").innerText = tickerText;
-});
-
-/* LIKE SYSTEM */
-function react(btn){
-  let span = btn.querySelector("span");
-  let count = parseInt(span.innerText);
-  span.innerText = count + 1;
-}
-
-</script>
+<div class="ticker-wrap">
+    <div class="ticker">
+        <strong>DEG DEG:</strong> Nin hubeysan oo la dilay ka dib markii uu isku dayay inuu u galo safaaradda Mareykanka ee Muqdisho... &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp; 
+        <strong>WAR CUSUB:</strong> Madaxweyne Trump oo saxiixay amaro cusub oo dhanka dhaqaalaha ah...
+    </div>
+</div>
 
 </body>
 </html>
