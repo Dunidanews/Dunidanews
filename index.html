@@ -3,168 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dunida News | Wararka Caalamka & Geeska</title>
+    <title>Dunida News | Wararka & Falanqaynta</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Roboto:wght@400;700&display=swap');
-        body { font-family: 'Roboto', sans-serif; }
+        html, body { height: 100%; margin: 0; }
+        body { font-family: 'Roboto', sans-serif; display: flex; flex-direction: column; background-color: #f3f4f6; }
+        main { flex: 1; }
         .logo-font { font-family: 'Oswald', sans-serif; }
-        .admin-hidden { display: none !important; }
-        .news-card { transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        .news-card:hover { transform: translateY(-8px); box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1); }
-        .dashboard-overlay { backdrop-filter: blur(8px); }
+        .admin-panel { transform: translateX(100%); transition: 0.3s ease-in-out; }
+        .admin-visible { transform: translateX(0); }
+        .news-card { border-radius: 12px; overflow: hidden; background: white; border: 1px solid #e5e7eb; transition: 0.3s; }
+        .news-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .secret-dot { width: 8px; height: 8px; background: #111; border-radius: 50%; cursor: pointer; opacity: 0.1; transition: 0.3s; }
+        .secret-dot:hover { opacity: 1; background: #dc2626; }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-900">
+<body>
 
     <header class="bg-black text-white sticky top-0 z-50 border-b-4 border-red-700">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <div class="flex items-center space-x-3">
-                <div class="bg-red-700 p-1 px-2 text-xl font-bold rounded">DN</div>
-                <h1 class="text-3xl logo-font tracking-tighter uppercase italic">DUNIDA<span class="text-red-600">NEWS</span></h1>
+            <div class="flex items-center space-x-2">
+                <div class="bg-red-700 px-2 py-1 font-bold rounded italic">DN</div>
+                <h1 class="text-2xl logo-font tracking-tighter uppercase italic text-white">DUNIDA<span class="text-red-600">NEWS</span></h1>
             </div>
-            <nav class="hidden lg:flex space-x-8 font-bold text-xs uppercase tracking-widest">
-                <a href="#" class="hover:text-red-600 transition">Somaliland</a>
-                <a href="#" class="hover:text-red-600 transition">Geeska Afrika</a>
-                <a href="#" class="hover:text-red-600 transition">Caalamka</a>
-                <a href="#" class="hover:text-red-600 transition">Ciyaaraha</a>
+            <nav class="hidden md:flex space-x-6 text-[10px] font-black uppercase tracking-tighter text-gray-300">
+                <a href="#" class="text-red-600">Wararka</a>
+                <a href="#">Dhaqaalaha</a>
+                <a href="#">Siyaasadda</a>
+                <a href="#">Gabiley</a>
             </nav>
-            <button onclick="toggleAdmin()" class="bg-white text-black px-5 py-2 rounded shadow-lg font-black text-xs hover:bg-red-600 hover:text-white transition">
-                <i class="fas fa-bars-staggered mr-2"></i>DASHBOARD
-            </button>
         </div>
     </header>
 
-    <div class="bg-red-700 text-white py-2 flex items-center shadow-inner">
-        <div class="bg-black px-4 font-black italic text-sm">DEG-DEG</div>
-        <marquee class="font-bold text-sm">*** Dunida News: Isha wararka saxda ah ee Gabiley iyo Geeska Afrika ***</marquee>
+    <div class="bg-red-700 text-white py-2 flex items-center overflow-hidden">
+        <div class="bg-black px-4 font-black italic text-[10px] h-full flex items-center z-10">DEG-DEG</div>
+        <marquee class="font-bold text-sm italic">*** Dunida News: Isha falanqaynta siyaasadda iyo dhaqaalaha Geeska Afrika iyo Caalamka ***</marquee>
     </div>
 
-    <main class="container mx-auto px-4 py-12">
-        <div class="flex items-center justify-between mb-8 border-b-2 border-gray-200 pb-4">
-            <h2 class="text-2xl font-black uppercase tracking-tighter">Wararka ugu dambeeyay</h2>
-            <div class="text-sm font-bold text-gray-400 uppercase" id="current-date"></div>
-        </div>
-        
-        <div id="news-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+    <main class="container mx-auto px-4 py-10">
+        <div id="news-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             </div>
     </main>
 
-    <div id="admin-panel" class="admin-hidden fixed inset-0 z-[100] flex justify-end">
-        <div class="dashboard-overlay absolute inset-0 bg-black/60" onclick="toggleAdmin()"></div>
-        <div class="bg-white w-full max-w-md h-full relative z-10 shadow-2xl p-8 flex flex-col">
-            <div class="flex justify-between items-center mb-10 border-b pb-4">
-                <h2 class="text-2xl font-black italic text-gray-800">MAAMULKA <span class="text-red-600">DN</span></h2>
-                <button onclick="toggleAdmin()" class="text-gray-400 hover:text-red-600 text-3xl">&times;</button>
+    <footer class="bg-black text-gray-500 py-8 border-t-8 border-red-700">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="text-center md:text-left">
+                <h2 class="text-xl font-black italic text-white uppercase">DUNIDA<span class="text-red-600">NEWS</span></h2>
+                <p class="text-[9px] uppercase tracking-widest mt-1">© 2026 Dunida News Network | Gabiley, Somaliland</p>
             </div>
-
-            <div class="space-y-6 overflow-y-auto pr-2">
-                <div>
-                    <label class="block text-xs font-black uppercase text-gray-500 mb-2">Password-ka Maamulka</label>
-                    <input type="password" id="adminPass" class="w-full bg-gray-100 p-3 rounded-lg border-2 border-transparent focus:border-red-600 outline-none transition">
+            
+            <div class="flex items-center gap-6">
+                <div class="flex space-x-4 text-lg">
+                    <i class="fab fa-facebook hover:text-white cursor-pointer"></i>
+                    <i class="fab fa-twitter hover:text-white cursor-pointer"></i>
+                    <i class="fab fa-youtube hover:text-white cursor-pointer"></i>
                 </div>
-
-                <div class="border-t pt-6 space-y-4">
-                    <input type="text" id="postTitle" placeholder="Cinwaanka Warka (Title)" class="w-full p-4 bg-gray-50 border rounded-xl outline-none focus:ring-2 ring-red-600">
-                    <input type="text" id="postImg" placeholder="Link-ga Sawirka (URL)" class="w-full p-4 bg-gray-50 border rounded-xl outline-none focus:ring-2 ring-red-600">
-                    <p class="text-[10px] text-gray-400 italic">Talo: Soo koobi garee 'Image Link' ka soo qaad Facebook ama Google.</p>
-                    <textarea id="postContent" rows="6" placeholder="Faahfaahinta Warka..." class="w-full p-4 bg-gray-50 border rounded-xl outline-none focus:ring-2 ring-red-600"></textarea>
-                    
-                    <button onclick="publishNews()" class="w-full bg-black text-white font-black py-4 rounded-xl hover:bg-red-700 transition shadow-xl">
-                        DAABAC WARKA HADA
-                    </button>
-                    
-                    <button onclick="clearHistory()" class="w-full text-red-600 text-xs font-bold mt-4 border border-red-100 py-2 rounded-lg hover:bg-red-50">
-                        <i class="fas fa-trash mr-2"></i>Tirtir Dhammaan Wararka
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <footer class="bg-black text-white py-20 mt-20 border-t-8 border-red-700">
-        <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-12">
-            <div>
-                <h1 class="text-2xl font-black italic mb-6 uppercase">DUNIDA<span class="text-red-600">NEWS</span></h1>
-                <p class="text-gray-500 text-sm leading-relaxed">Wararka Gabiley, Somaliland iyo Caalamka 24/7. Isha xaqiiqada ee Geeska Afrika.</p>
-            </div>
-            <div>
-                <h4 class="font-bold text-red-600 uppercase mb-6">Xiriirka</h4>
-                <p class="text-sm text-gray-400">Email: newsdunida@gmail.com</p>
-                <p class="text-sm text-gray-400">Gabiley, Somaliland</p>
-            </div>
-            <div class="flex space-x-4">
-                <a href="#" class="h-10 w-10 bg-gray-800 rounded flex items-center justify-center hover:bg-red-600"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="h-10 w-10 bg-gray-800 rounded flex items-center justify-center hover:bg-red-600"><i class="fab fa-twitter"></i></a>
-                <a href="#" class="h-10 w-10 bg-gray-800 rounded flex items-center justify-center hover:bg-red-600"><i class="fab fa-youtube"></i></a>
+                <div onclick="toggleAdmin()" class="secret-dot" title="Maamulka"></div>
             </div>
         </div>
     </footer>
 
+    <div id="admin-panel" class="admin-panel fixed top-0 right-0 h-full w-80 bg-white z-[100] shadow-2xl p-6 border-l-4 border-red-700 flex flex-col">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="font-black italic text-gray-800 tracking-tighter uppercase">Maamulka <span class="text-red-600">DN</span></h2>
+            <button onclick="toggleAdmin()" class="text-3xl text-gray-300 hover:text-red-600">&times;</button>
+        </div>
+        
+        <div class="space-y-4 overflow-y-auto pr-2">
+            <input type="password" id="adminPass" placeholder="Password" class="w-full p-3 bg-gray-50 border rounded-xl outline-none focus:border-red-600 transition">
+            <input type="text" id="postTitle" placeholder="Cinwaanka Warka" class="w-full p-3 border rounded-xl outline-none">
+            
+            <div class="bg-blue-50 p-3 rounded-xl border-2 border-dashed border-blue-200">
+                <p class="text-[10px] font-bold text-blue-700 mb-2 uppercase italic">Tallaabada 1: Soo rido sawirka</p>
+                <a href="https://postimages.org/" target="_blank" class="flex items-center justify-center gap-2 bg-blue-600 text-white py-2 rounded-lg text-xs font-bold hover:bg-blue-700 transition">
+                    <i class="fas fa-cloud-upload-alt"></i> UPLOAD SAWIRKA
+                </a>
+            </div>
+
+            <div>
+                <p class="text-[10px] font-bold text-gray-400 mb-1 uppercase">Tallaabada 2: Geli Link-ga (Direct Link)</p>
+                <input type="text" id="postImg" placeholder="https://link-ga-sawirka.jpg" class="w-full p-3 border rounded-xl outline-none focus:border-red-600">
+            </div>
+
+            <textarea id="postContent" rows="6" placeholder="Qoraalka faahfaahsan..." class="w-full p-3 border rounded-xl outline-none focus:border-red-600"></textarea>
+            
+            <button onclick="publishNews()" class="w-full bg-red-700 text-white font-black py-4 rounded-xl hover:bg-black shadow-lg transition">DAABAC WARKA</button>
+            <button onclick="clearHistory()" class="w-full text-[9px] text-gray-300 mt-6 hover:text-red-600 uppercase tracking-widest font-bold">Tirtir Dhammaan Wararka</button>
+        </div>
+    </div>
+
     <script>
         const PASS = "Gabiley2026";
-        let newsItems = JSON.parse(localStorage.getItem('dn_database')) || [];
+        let newsItems = JSON.parse(localStorage.getItem('dn_v7_db')) || [];
 
-        window.onload = () => {
-            document.getElementById('current-date').innerText = new Date().toDateString();
-            renderFeed();
-        };
+        window.onload = renderFeed;
 
         function toggleAdmin() {
-            document.getElementById('admin-panel').classList.toggle('admin-hidden');
+            document.getElementById('admin-panel').classList.toggle('admin-visible');
         }
 
         function publishNews() {
-            const passInput = document.getElementById('adminPass').value;
+            const pass = document.getElementById('adminPass').value;
             const title = document.getElementById('postTitle').value;
             const img = document.getElementById('postImg').value || 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800';
             const content = document.getElementById('postContent').value;
 
-            if(passInput !== PASS) return alert("Password-ka waa khalad!");
+            if(pass !== PASS) return alert("Password-ka waa khalad!");
             if(!title || !content) return alert("Fadlan buuxi cinwaanka iyo qoraalka!");
 
-            const newItem = { title, img, content, time: new Date().toLocaleString('so-SO') };
-            newsItems.unshift(newItem);
-            localStorage.setItem('dn_database', JSON.stringify(newsItems));
+            newsItems.unshift({ title, img, content, date: new Date().toLocaleDateString('so-SO') });
+            localStorage.setItem('dn_v7_db', JSON.stringify(newsItems));
             
             renderFeed();
             toggleAdmin();
-            // Nadiifi meelaha wax laga qoro
+            document.getElementById('adminPass').value = '';
             document.getElementById('postTitle').value = '';
-            document.getElementById('postContent').value = '';
             document.getElementById('postImg').value = '';
+            document.getElementById('postContent').value = '';
         }
 
         function renderFeed() {
             const grid = document.getElementById('news-grid');
             if(newsItems.length === 0) {
-                grid.innerHTML = '<div class="col-span-full py-20 text-center text-gray-400 italic">Ma jiraan warar la soo dhigay weli...</div>';
+                grid.innerHTML = '<div class="col-span-full py-20 text-center text-gray-400 italic">Ma jiraan warar la soo dhigay. Isticmaal dhibicda qarsoon si aad wax u qorto.</div>';
                 return;
             }
             grid.innerHTML = newsItems.map(post => `
-                <div class="news-card bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
-                    <div class="h-56 overflow-hidden">
-                        <img src="${post.img}" class="w-full h-full object-cover hover:scale-110 transition duration-700" onerror="this.src='https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800'">
-                    </div>
+                <article class="news-card flex flex-col">
+                    <img src="${post.img}" class="h-52 w-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800'">
                     <div class="p-6">
-                        <div class="flex justify-between items-center mb-4">
-                            <span class="bg-red-100 text-red-700 text-[10px] font-black px-2 py-1 rounded">WAR DEG DEG AH</span>
-                            <span class="text-[10px] text-gray-400 font-bold">${post.time}</span>
+                        <div class="flex justify-between items-center mb-3 text-[10px] font-bold uppercase tracking-widest">
+                            <span class="text-red-600 italic">Dunida News</span>
+                            <span class="text-gray-400">${post.date}</span>
                         </div>
-                        <h3 class="text-xl font-black leading-tight mb-4 text-gray-800">${post.title}</h3>
-                        <p class="text-gray-600 text-sm line-clamp-3 mb-6">${post.content}</p>
-                        <div class="pt-4 border-t border-gray-50">
-                            <button class="text-red-700 font-black text-xs uppercase tracking-widest hover:underline">Akhri Faahfaahinta →</button>
-                        </div>
+                        <h3 class="font-black text-lg mb-3 leading-tight text-gray-800">${post.title}</h3>
+                        <p class="text-xs text-gray-500 leading-relaxed line-clamp-3 mb-6">${post.content}</p>
+                        <button class="text-[10px] font-black uppercase border-b-2 border-red-700 pb-1 hover:text-red-700 transition">Akhri inta dhiman</button>
                     </div>
-                </div>
+                </article>
             `).join('');
         }
 
         function clearHistory() {
-            if(confirm("Ma hubtaa inaad tirtirayso dhammaan wararka?")) {
-                localStorage.removeItem('dn_database');
+            if(confirm("Ma hubtaa inaad tirtirayso dhammaan wararka website-ka?")) {
+                localStorage.removeItem('dn_v7_db');
                 newsItems = [];
                 renderFeed();
                 toggleAdmin();
